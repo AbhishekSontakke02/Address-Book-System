@@ -52,31 +52,40 @@ class AddressBook {
     Scanner scanner = new Scanner(System.in);
     ArrayList<Contact> contactList = new ArrayList<>();
 
-    public void addContact(){
-        System.out.println("Enter Contact Details");
-        System.out.println("Enter First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.println("Enter Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.println("Enter Address: ");
-        String address = scanner.nextLine();
-        System.out.println("Enter City: ");
-        String city = scanner.nextLine();
-        System.out.println("Enter State: ");
-        String state = scanner.nextLine();
-        System.out.println("Enter Zip code:");
-        int zip = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Enter Phone No: ");
-        String phoneNo = scanner.nextLine();
-        System.out.println("Enter Email: ");
-        String email = scanner.nextLine();
+    public boolean addContact(){
 
-        Contact contact = new Contact(firstName, lastName, address, city, state, zip, email, phoneNo);
-        contactList.add(contact);
-        System.out.println("\nContact Added Successfully...\n");
-        System.out.println("=====================================");
+        System.out.println();
+        System.out.println("Enter Contact Details\n");
+        System.out.println("Enter First Name :");
+        String fname = scanner.nextLine();
+
+        if (contactList.stream().anyMatch(contact->contact.firstName.equals(fname))) {
+            System.out.println("Person "+ fname +" Already Exists!");
+            return false;
+        }else{
+            System.out.println("Enter Last Name : ");
+            String lname = scanner.nextLine();
+            System.out.println("Enter Address : ");
+            String address = scanner.nextLine();
+            System.out.println("Enter City : ");
+            String city = scanner.nextLine();
+            System.out.println("Enter State : ");
+            String state = scanner.nextLine();
+            System.out.println("Enter Zip code :");
+            int zip = scanner.nextInt();
+            scanner.nextLine();
+            System.out.println("Enter Phone No : ");
+            String phoneNo = scanner.nextLine();
+            System.out.println("Enter Email : ");
+            String email = scanner.nextLine();
+
+            Contact contact = new Contact(fname, lname, address, city, state, zip, email, phoneNo);
+            contactList.add(contact);
+            return true;
+        }
+
     }
+
 
     public void editContact(String name){
         boolean flag = false;
