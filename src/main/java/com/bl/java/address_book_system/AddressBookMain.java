@@ -1,5 +1,7 @@
 package com.bl.java.address_book_system;
 
+import java.util.Scanner;
+
 class Contact {
 
     String firstName;
@@ -42,5 +44,29 @@ public class AddressBookMain {
         System.out.println("\nWelcome to Address Book\n");
         Contact contact = new Contact("Abhishek", "Sontakke", "002,Sai Samartha Blessings", "Panvel", "Maharashtra", 410206,"abhisontakke3930@gmail.com", "7977467636");
         System.out.println(contact);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter Contact Details");
+        System.out.println("Enter First Name ");
+        String firstName = scanner.nextLine();
+        System.out.println("Enter Last Name : ");
+        String lastName = scanner.nextLine();
+        System.out.println("Enter Address : ");
+        String address = scanner.nextLine();
+        System.out.println("Enter City : ");
+        String city = scanner.nextLine();
+        System.out.println("Enter State : ");
+        String state = scanner.nextLine();
+        System.out.println("Enter Zip code :");
+        int zip = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Enter Phone No : ");
+        String phoneNo = scanner.nextLine();
+        System.out.println("Enter Email : ");
+        String email = scanner.nextLine();
+
+        Contact contact2 = new Contact(firstName, lastName, address, city, state, zip, email, phoneNo);
+        System.out.println(contact2);
+
     }
 }
