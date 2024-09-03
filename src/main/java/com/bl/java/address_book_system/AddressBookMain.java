@@ -1,9 +1,6 @@
 package com.bl.java.address_book_system;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 class Contact {
 
@@ -218,7 +215,6 @@ class AddressBook {
                         contact.state = scanner.nextLine();
                         System.out.println("Enter Zip code: ");
                         contact.zip = scanner.nextInt();
-                        scanner.nextLine();
                         System.out.println("Enter Phone No: ");
                         contact.phoneNo = scanner.nextLine();
                         System.out.println("Enter Email: ");
@@ -264,6 +260,29 @@ class AddressBook {
             }
         }
     }
+    public void searchContactByCity(String city) {
+        List<Contact> contactsInCity = contactList.stream()
+                .filter(contact -> contact.getCity().equals(city))
+                .toList();
+        if (contactsInCity.isEmpty()) {
+            System.out.println("No contacts found in the city: " + city);
+        } else {
+            contactsInCity.forEach(contact -> System.out.println(contact));
+        }
+    }
+
+    public void searchContactByState(String state) {
+        List<Contact> contactsInState = contactList.stream()
+                .filter(contact -> contact.getState().equals(state))
+                .toList(); // or use .collect(Collectors.toList()) if using Java version lower than 16
+
+        if (contactsInState.isEmpty()) {
+            System.out.println("No contacts found in the state: " + state);
+        } else {
+            contactsInState.forEach(contact -> System.out.println(contact));
+        }
+    }
+
 }
 
 public class AddressBookMain {
@@ -301,6 +320,8 @@ public class AddressBookMain {
             System.out.println("3. Edit Contact");
             System.out.println("4. Delete Contact");
             System.out.println("5. Display All Contacts");
+            System.out.println("6. Search Contact by City");
+            System.out.println("7. Search Contact by State");
             System.out.println("0. Exit");
 
             int choice = scanner.nextInt();
@@ -358,6 +379,32 @@ public class AddressBookMain {
                     AddressBook addressBook4 = addressBooksManager.searchAddressBook(bookName4);
                     if (addressBook4 != null) {
                         addressBook4.displayContacts();
+                    } else {
+                        System.out.println("AddressBook Not Found!");
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("Enter Name of AddressBook to search by City: ");
+                    String bookNameByCity = scanner.nextLine();
+                    AddressBook addressBookByCity = addressBooksManager.searchAddressBook(bookNameByCity);
+                    if (addressBookByCity != null) {
+                        System.out.println("Enter City to search: ");
+                        String city = scanner.nextLine();
+                        addressBookByCity.searchContactByCity(city);
+                    } else {
+                        System.out.println("AddressBook Not Found!");
+                    }
+                    break;
+
+                case 7:
+                    System.out.println("Enter Name of AddressBook to search by State: ");
+                    String bookNameByState = scanner.nextLine();
+                    AddressBook addressBookByState = addressBooksManager.searchAddressBook(bookNameByState);
+                    if (addressBookByState != null) {
+                        System.out.println("Enter State to search: ");
+                        String state = scanner.nextLine();
+                        addressBookByState.searchContactByState(state);
                     } else {
                         System.out.println("AddressBook Not Found!");
                     }
