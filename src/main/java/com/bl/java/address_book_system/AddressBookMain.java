@@ -32,9 +32,6 @@ class Contact {
     public Contact() {
     }
 
-    // Getters and Setters
-    // ...
-
     @Override
     public String toString(){
         return "Contact Name: " + firstName + " " + lastName + "\n" +
