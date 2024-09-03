@@ -28,13 +28,6 @@ class Contact {
         this.phoneNo = phoneNo;
     }
 
-    // Default constructor
-    public Contact() {
-    }
-
-    // Getters and Setters
-    // ...
-
     @Override
     public String toString(){
         return "Contact Name: " + firstName + " " + lastName + "\n" +
@@ -211,7 +204,7 @@ class AddressBook {
 }
 
 public class AddressBookMain {
-    private Map<String, AddressBook> addressBooks;
+    private static Map<String, AddressBook> addressBooks;
 
     public AddressBookMain() {
         addressBooks = new HashMap<>();
