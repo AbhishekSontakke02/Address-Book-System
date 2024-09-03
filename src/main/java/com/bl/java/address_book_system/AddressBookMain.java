@@ -16,6 +16,70 @@ class Contact {
     String email;
     String phoneNo;
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getZip() {
+        return zip;
+    }
+
+    public void setZip(int zip) {
+        this.zip = zip;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
+    }
+
     // Constructor with parameters
     public Contact(String firstName, String lastName, String address, String city, String state, int zip, String email, String phoneNo) {
         this.firstName = firstName;
@@ -52,7 +116,7 @@ class AddressBook {
         System.out.println("Enter First Name :");
         String fname = scanner.nextLine();
 
-        if (contactList.stream().anyMatch(contact->contact.firstName.equals(fname))) {
+        if (contactList.stream().anyMatch(contact->contact.getFirstName().equals(fname))) {
             System.out.println("Person "+ fname +" Already Exists!");
             return false;
         }else{
@@ -66,7 +130,6 @@ class AddressBook {
             String state = scanner.nextLine();
             System.out.println("Enter Zip code :");
             int zip = scanner.nextInt();
-            scanner.nextLine();
             System.out.println("Enter Phone No : ");
             String phoneNo = scanner.nextLine();
             System.out.println("Enter Email : ");
@@ -102,43 +165,43 @@ class AddressBook {
                 switch (choice) {
                     case 1:
                         System.out.println("Enter First Name: ");
-                        contact.firstName = scanner.nextLine();
+                        contact.setFirstName(scanner.nextLine());
                         break;
 
                     case 2:
                         System.out.println("Enter Last Name: ");
-                        contact.lastName = scanner.nextLine();
+                        contact.setLastName(scanner.nextLine());
                         break;
 
                     case 3:
                         System.out.println("Enter Address: ");
-                        contact.address = scanner.nextLine();
+                        contact.setAddress(scanner.nextLine());
                         break;
 
                     case 4:
                         System.out.println("Enter City: ");
-                        contact.city = scanner.nextLine();
+                        contact.setCity(scanner.nextLine());
                         break;
 
                     case 5:
                         System.out.println("Enter State: ");
-                        contact.state = scanner.nextLine();
+                        contact.setState(scanner.nextLine());
                         break;
 
                     case 6:
                         System.out.println("Enter Zip Code: ");
-                        contact.zip = scanner.nextInt();
+                        contact.setZip(scanner.nextInt());
                         scanner.nextLine();
                         break;
 
                     case 7:
                         System.out.println("Enter Phone Number: ");
-                        contact.phoneNo = scanner.nextLine();
+                        contact.setPhoneNo(scanner.nextLine());
                         break;
 
                     case 8:
                         System.out.println("Enter Email: ");
-                        contact.email = scanner.nextLine();
+                        contact.setEmail(scanner.nextLine());
                         break;
 
                     case 9:
@@ -179,7 +242,7 @@ class AddressBook {
     public void deleteContact(String name){
         Contact tempContact = null;
         for (Contact contact : contactList) {
-            if (name.equals(contact.firstName)) {
+            if (name.equals(contact.getFirstName())) {
                 tempContact = contact;
                 break;
             }
