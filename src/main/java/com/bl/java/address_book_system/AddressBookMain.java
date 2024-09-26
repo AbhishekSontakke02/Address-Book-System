@@ -1,6 +1,7 @@
 package com.bl.java.address_book_system;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 class Contact {
 
@@ -105,6 +106,8 @@ class AddressBook {
 
     Scanner scanner = new Scanner(System.in);
     ArrayList<Contact> contactList = new ArrayList<>();
+    static Map<String, List<String>> personbyCity = new HashMap<>();
+    static Map<String, List<String>> personbyState = new HashMap<>();
 
     public boolean addContact(){
 
@@ -282,11 +285,28 @@ class AddressBook {
             contactsInState.forEach(contact -> System.out.println(contact));
         }
     }
+    public Collection<Contact> getContacts() {
+        return contactList;
+    }
+
+
+    public List<String> getContactsByCity(String city) {
+        return personbyCity.getOrDefault(city, Collections.emptyList());
+    }
+
+
+    public List<String> getContactsByState(String state) {
+        return personbyState.getOrDefault(state, Collections.emptyList());
+    }
+
+
+
 
 }
 
 public class AddressBookMain {
     private static Map<String, AddressBook> addressBooks;
+    static Scanner scanner = new Scanner(System.in);
 
     public AddressBookMain() {
         addressBooks = new HashMap<>();
@@ -306,9 +326,7 @@ public class AddressBookMain {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\n========= Welcome to Address Book Program =========\n");
-
+       System.out.println("\n========= Welcome to Address Book Program =========\n");
         AddressBookMain addressBooksManager = new AddressBookMain();
 
         boolean flag = true;
@@ -322,6 +340,7 @@ public class AddressBookMain {
             System.out.println("5. Display All Contacts");
             System.out.println("6. Search Contact by City");
             System.out.println("7. Search Contact by State");
+            System.out.println("8. View Contacts by City/State");
             System.out.println("0. Exit");
 
             int choice = scanner.nextInt();
@@ -409,6 +428,9 @@ public class AddressBookMain {
                         System.out.println("AddressBook Not Found!");
                     }
                     break;
+                case 8:
+                    viewContactsByCityOrState();
+                    break;
 
                 case 0:
                     flag = false;
@@ -423,4 +445,60 @@ public class AddressBookMain {
         System.out.println("\nExiting Program...");
         System.out.println("Thank You!");
     }
+    private static void viewContactsByCityOrState() {
+        System.out.println("1. View Contacts by City");
+        System.out.println("2. View Contacts by State");
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+
+        switch (choice) {
+            case 1:
+                viewContactsByCity();
+                break;
+            case 2:
+                viewContactsByState();
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
+    }
+
+
+    private static void viewContactsByCity() {
+        System.out.print("Enter City to view contacts: ");
+        String city = scanner.nextLine();
+
+
+        List<String> result = addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.getContactsByCity(city).stream())
+                .collect(Collectors.toList());
+
+
+        if (result.isEmpty()) {
+            System.out.println("No contacts found in the city.");
+        } else {
+            result.forEach(System.out::println);
+        }
+    }
+
+
+    private static void viewContactsByState() {
+        System.out.print("Enter State to view contacts: ");
+        String state = scanner.nextLine();
+
+
+        List<String> result = addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.getContactsByState(state).stream())
+                .collect(Collectors.toList());
+
+
+        if (result.isEmpty()) {
+            System.out.println("No contacts found in the state.");
+        } else {
+            result.forEach(System.out::println);
+        }
+    }
+
 }
