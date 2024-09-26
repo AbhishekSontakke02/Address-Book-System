@@ -341,6 +341,8 @@ public class AddressBookMain {
             System.out.println("6. Search Contact by City");
             System.out.println("7. Search Contact by State");
             System.out.println("8. View Contacts by City/State");
+            System.out.println("9. Count Contacts by City/State");
+
             System.out.println("0. Exit");
 
             int choice = scanner.nextInt();
@@ -431,6 +433,9 @@ public class AddressBookMain {
                 case 8:
                     viewContactsByCityOrState();
                     break;
+                case 9:
+                    countContactsByCityOrState();
+                    break;
 
                 case 0:
                     flag = false;
@@ -500,5 +505,54 @@ public class AddressBookMain {
             result.forEach(System.out::println);
         }
     }
+    private static void countContactsByCityOrState() {
+        System.out.println("1. Count Contacts by City");
+        System.out.println("2. Count Contacts by State");
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+
+        switch (choice) {
+            case 1:
+                countContactsByCity();
+                break;
+            case 2:
+                countContactsByState();
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+        }
+    }
+
+
+    private static void countContactsByCity() {
+        System.out.print("Enter City to count contacts: ");
+        String city = scanner.nextLine();
+
+
+        long count = addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.getContactsByCity(city).stream())
+                .count();
+
+
+        System.out.println("Number of contacts in city '" + city + "': " + count);
+    }
+
+
+    private static void countContactsByState() {
+        System.out.print("Enter State to count contacts: ");
+        String state = scanner.nextLine();
+
+
+        long count = addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.getContactsByState(state).stream())
+                .count();
+
+
+        System.out.println("Number of contacts in state '" + state + "': " + count);
+    }
+
+
 
 }
