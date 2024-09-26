@@ -285,6 +285,42 @@ class AddressBook {
             contactsInState.forEach(contact -> System.out.println(contact));
         }
     }
+
+    public static void sortContactsByCity() {
+        List<Contact> sortedContacts = contactList.stream()
+                .sorted(Comparator.comparing(Contact::getCity))
+                .collect(Collectors.toList());
+
+
+        System.out.println("Contacts sorted by City:");
+        sortedContacts.forEach(System.out::println);
+    }
+
+
+    public static void sortContactsByState() {
+        List<Contact> sortedContacts = contactList.stream()
+                .sorted(Comparator.comparing(Contact::getState))
+                .collect(Collectors.toList());
+
+
+        System.out.println("Contacts sorted by State:");
+        sortedContacts.forEach(System.out::println);
+    }
+
+
+    public static void sortContactsByZip() {
+        List<Contact> sortedContacts = contactList.stream()
+                .sorted(Comparator.comparing(Contact::getZip))
+                .collect(Collectors.toList());
+
+
+        System.out.println("Contacts sorted by Zip:");
+        sortedContacts.forEach(System.out::println);
+    }
+
+
+
+
     public Collection<Contact> getContacts() {
         return contactList;
     }
@@ -355,6 +391,10 @@ public class AddressBookMain {
             System.out.println("8. View Contacts by City/State");
             System.out.println("9. Count Contacts by City/State");
             System.out.println("10. Sort Contacts by Name");
+            System.out.println("11. Sort Contacts by City");
+            System.out.println("12. Sort Contacts by State");
+            System.out.println("13. Sort Contacts by Zip");
+
 
 
             System.out.println("0. Exit");
@@ -452,7 +492,15 @@ public class AddressBookMain {
                     break;
                 case 10:
                     AddressBook.sortContactsByName();
-
+                case 11:
+                    AddressBook.sortContactsByCity();
+                    break;
+                case 12:
+                    AddressBook.sortContactsByState();
+                    break;
+                case 13:
+                    AddressBook.sortContactsByZip();
+                    break;
                 case 0:
                     flag = false;
                     break;
