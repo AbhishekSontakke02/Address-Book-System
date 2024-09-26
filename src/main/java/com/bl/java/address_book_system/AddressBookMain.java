@@ -105,7 +105,7 @@ class Contact {
 class AddressBook {
 
     Scanner scanner = new Scanner(System.in);
-    ArrayList<Contact> contactList = new ArrayList<>();
+    static ArrayList<Contact> contactList = new ArrayList<>();
     static Map<String, List<String>> personbyCity = new HashMap<>();
     static Map<String, List<String>> personbyState = new HashMap<>();
 
@@ -298,6 +298,18 @@ class AddressBook {
     public List<String> getContactsByState(String state) {
         return personbyState.getOrDefault(state, Collections.emptyList());
     }
+    public static void sortContactsByName() {
+        List<Contact> sortedContacts = contactList.stream()
+                .sorted(Comparator.comparing(Contact::getFirstName)
+                        .thenComparing(Contact::getLastName))
+                .collect(Collectors.toList());
+
+
+        System.out.println("Contacts sorted alphabetically by name:");
+        sortedContacts.forEach(System.out::println);
+    }
+
+
 
 
 
@@ -342,6 +354,8 @@ public class AddressBookMain {
             System.out.println("7. Search Contact by State");
             System.out.println("8. View Contacts by City/State");
             System.out.println("9. Count Contacts by City/State");
+            System.out.println("10. Sort Contacts by Name");
+
 
             System.out.println("0. Exit");
 
@@ -436,6 +450,8 @@ public class AddressBookMain {
                 case 9:
                     countContactsByCityOrState();
                     break;
+                case 10:
+                    AddressBook.sortContactsByName();
 
                 case 0:
                     flag = false;
